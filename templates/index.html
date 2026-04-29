@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenGTM - AI驱动的GTM自动化平台</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+  <!-- 侧边栏 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon"><i class="ri-rocket-2-fill"></i></div>
+        <span class="logo-text">OpenGTM</span>
+      </div>
+      <span class="version-badge">v0.2.0</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">核心功能</div>
+      <a class="nav-item active" data-page="dashboard" href="#">
+        <i class="ri-dashboard-3-line"></i><span>工作台</span>
+      </a>
+      <a class="nav-item" data-page="pipeline" href="#">
+        <i class="ri-flashlight-line"></i><span>一键流水线</span>
+        <span class="version-badge" style="margin-left:auto;font-size:10px;">NEW</span>
+      </a>
+      <a class="nav-item" data-page="health" href="#">
+        <i class="ri-heart-pulse-line"></i><span>AEO健康检查</span>
+      </a>
+      <a class="nav-item" data-page="discover" href="#">
+        <i class="ri-search-eye-line"></i><span>线索发现</span>
+      </a>
+      <a class="nav-item" data-page="research" href="#">
+        <i class="ri-microscope-line"></i><span>公司调研</span>
+      </a>
+      <a class="nav-item" data-page="qualify" href="#">
+        <i class="ri-bar-chart-grouped-line"></i><span>ICP评分</span>
+      </a>
+
+      <div class="nav-section-label">营销触达</div>
+      <a class="nav-item" data-page="outreach" href="#">
+        <i class="ri-send-plane-line"></i><span>外展管理</span>
+      </a>
+      <a class="nav-item" data-page="context" href="#">
+        <i class="ri-building-2-line"></i><span>上下文提取</span>
+      </a>
+
+      <div class="nav-section-label">集成</div>
+      <a class="nav-item" data-page="sync" href="#">
+        <i class="ri-wechat-line"></i><span>企业微信同步</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="system-status" id="systemStatus">
+        <div class="status-dot"></div>
+        <span>系统检测中...</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="main-content">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="ri-menu-line"></i>
+      </button>
+      <div class="topbar-title" id="pageTitle">工作台</div>
+      <div class="topbar-actions">
+        <div class="model-badge" id="modelBadge">
+          <i class="ri-brain-line"></i>
+          <span>加载中...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 页面容器 -->
+    <div class="page-container">
+
+      <!-- ==================== 工作台 ==================== -->
+      <section class="page active" id="page-dashboard">
+        <div class="hero-banner">
+          <div class="hero-content">
+            <h1>欢迎使用 <span class="gradient-text">OpenGTM</span></h1>
+            <p>AI驱动的Go-To-Market自动化平台 · 发现线索 · 智能评分 · 精准触达</p>
+          </div>
+          <div class="hero-particles" id="heroParticles"></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card" data-page-link="health">
+            <div class="stat-icon health"><i class="ri-heart-pulse-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">AEO健康检查</div>
+              <div class="stat-desc">29项SEO/AEO检查，涵盖技术SEO、结构化数据、AI爬虫访问</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+          <div class="stat-card" data-page-link="discover">
+            <div class="stat-icon discover"><i class="ri-search-eye-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">线索发现</div>
+              <div class="stat-desc">通过AI智能搜索目标行业和地区的潜在客户</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+          <div class="stat-card" data-page-link="research">
+            <div class="stat-icon research"><i class="ri-microscope-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">公司调研</div>
+              <div class="stat-desc">深度分析公司网站，提取决策者信息和技术审计</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+          <div class="stat-card" data-page-link="qualify">
+            <div class="stat-icon qualify"><i class="ri-bar-chart-grouped-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">ICP评分</div>
+              <div class="stat-desc">六维度ICP匹配度评分，智能分级推荐操作</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+          <div class="stat-card" data-page-link="outreach">
+            <div class="stat-icon outreach"><i class="ri-send-plane-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">外展管理</div>
+              <div class="stat-desc">多触点外展序列，自动化跟进流程管理</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+          <div class="stat-card" data-page-link="sync">
+            <div class="stat-icon sync"><i class="ri-wechat-line"></i></div>
+            <div class="stat-info">
+              <div class="stat-label">企业微信同步</div>
+              <div class="stat-desc">一键推送线索到企业微信群，团队协作无缝衔接</div>
+            </div>
+            <i class="ri-arrow-right-s-line stat-arrow"></i>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card pipeline-card">
+            <div class="card-header">
+              <h3><i class="ri-flow-chart"></i> GTM流水线</h3>
+            </div>
+            <div class="pipeline-flow">
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-search-eye-line"></i></div>
+                <div class="step-label">发现</div>
+              </div>
+              <div class="pipeline-arrow"><i class="ri-arrow-right-line"></i></div>
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-microscope-line"></i></div>
+                <div class="step-label">调研</div>
+              </div>
+              <div class="pipeline-arrow"><i class="ri-arrow-right-line"></i></div>
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-bar-chart-grouped-line"></i></div>
+                <div class="step-label">评分</div>
+              </div>
+              <div class="pipeline-arrow"><i class="ri-arrow-right-line"></i></div>
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-mail-send-line"></i></div>
+                <div class="step-label">消息</div>
+              </div>
+              <div class="pipeline-arrow"><i class="ri-arrow-right-line"></i></div>
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-send-plane-line"></i></div>
+                <div class="step-label">触达</div>
+              </div>
+              <div class="pipeline-arrow"><i class="ri-arrow-right-line"></i></div>
+              <div class="pipeline-step">
+                <div class="step-icon"><i class="ri-wechat-line"></i></div>
+                <div class="step-label">同步</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card config-card">
+            <div class="card-header">
+              <h3><i class="ri-settings-3-line"></i> 系统配置</h3>
+            </div>
+            <div class="config-list" id="configList">
+              <div class="config-item loading-placeholder">
+                <span>加载中...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 一键流水线 ==================== -->
+      <section class="page" id="page-pipeline">
+        <div class="page-header">
+          <div>
+            <h2>⚡ 一键流水线</h2>
+            <p class="page-subtitle">自动执行完整GTM流程：发现 → 调研 → 评分 → 消息生成</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row wrap">
+            <div class="input-group flex-1">
+              <label><i class="ri-building-line"></i> 目标行业 *</label>
+              <input type="text" id="pipeIndustry" placeholder="如：B2B SaaS、IT服务、人力资源" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-map-pin-line"></i> 目标地区 *</label>
+              <input type="text" id="pipeRegion" placeholder="如：北京、上海、深圳" class="input">
+            </div>
+            <div class="input-group" style="width:100px">
+              <label><i class="ri-hashtag"></i> 数量</label>
+              <input type="number" id="pipeLimit" value="5" min="1" max="20" class="input">
+            </div>
+          </div>
+          <div class="input-row" style="margin-top:12px">
+            <div class="input-group" style="width:160px">
+              <label><i class="ri-user-settings-line"></i> ICP配置</label>
+              <select id="pipeProfile" class="input">
+                <option value="default">通用B2B</option>
+                <option value="saas">B2B SaaS / 科技</option>
+                <option value="agency">营销/设计机构</option>
+                <option value="professional_services">专业服务</option>
+              </select>
+            </div>
+            <div class="input-group" style="width:120px">
+              <label><i class="ri-translate-2"></i> 消息语言</label>
+              <select id="pipeLang" class="input">
+                <option value="zh">中文</option>
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="btnPipeline" onclick="runPipeline()" style="align-self:flex-end">
+              <i class="ri-rocket-2-line"></i> 启动流水线
+            </button>
+          </div>
+        </div>
+
+        <div id="pipelineResult" class="result-area hidden"></div>
+      </section>
+
+      <!-- ==================== AEO健康检查 ==================== -->
+      <section class="page" id="page-health">
+        <div class="page-header">
+          <div>
+            <h2>AEO健康检查</h2>
+            <p class="page-subtitle">29项检查，涵盖技术SEO、结构化数据、AI爬虫访问和权威信号</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label><i class="ri-link"></i> 网站URL</label>
+              <input type="url" id="healthUrl" placeholder="https://example.com" class="input">
+            </div>
+            <div class="input-group" style="width:120px">
+              <label><i class="ri-timer-line"></i> 超时(秒)</label>
+              <input type="number" id="healthTimeout" value="30" min="5" max="120" class="input">
+            </div>
+            <button class="btn btn-primary" id="btnHealthCheck" onclick="runHealthCheck()">
+              <i class="ri-heart-pulse-line"></i> 开始检查
+            </button>
+          </div>
+        </div>
+
+        <div id="healthResult" class="result-area hidden">
+          <div class="score-hero" id="healthScoreHero"></div>
+          <div class="health-details" id="healthDetails"></div>
+        </div>
+      </section>
+
+      <!-- ==================== 线索发现 ==================== -->
+      <section class="page" id="page-discover">
+        <div class="page-header">
+          <div>
+            <h2>线索发现</h2>
+            <p class="page-subtitle">通过AI智能搜索目标行业和地区的潜在客户公司</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label><i class="ri-building-line"></i> 目标行业</label>
+              <input type="text" id="discoverIndustry" placeholder="如：B2B SaaS、IT服务、人工智能" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-map-pin-line"></i> 目标地区</label>
+              <input type="text" id="discoverRegion" placeholder="如：北京、上海、深圳" class="input">
+            </div>
+            <div class="input-group" style="width:100px">
+              <label><i class="ri-hashtag"></i> 数量</label>
+              <input type="number" id="discoverLimit" value="10" min="1" max="30" class="input">
+            </div>
+            <button class="btn btn-primary" id="btnDiscover" onclick="runDiscover()">
+              <i class="ri-search-eye-line"></i> 开始搜索
+            </button>
+          </div>
+        </div>
+
+        <div id="discoverResult" class="result-area hidden"></div>
+      </section>
+
+      <!-- ==================== 公司调研 ==================== -->
+      <section class="page" id="page-research">
+        <div class="page-header">
+          <div>
+            <h2>公司调研</h2>
+            <p class="page-subtitle">深度分析公司网站，提取决策者联系人信息和7维度技术审计</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label><i class="ri-global-line"></i> 公司域名</label>
+              <input type="text" id="researchDomain" placeholder="example.com" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-building-2-line"></i> 公司名称 (可选)</label>
+              <input type="text" id="researchCompany" placeholder="示例公司" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-price-tag-3-line"></i> 行业 (可选)</label>
+              <input type="text" id="researchIndustry" placeholder="B2B SaaS" class="input">
+            </div>
+            <button class="btn btn-primary" id="btnResearch" onclick="runResearch()">
+              <i class="ri-microscope-line"></i> 开始调研
+            </button>
+          </div>
+        </div>
+
+        <div id="researchResult" class="result-area hidden"></div>
+      </section>
+
+      <!-- ==================== ICP评分 ==================== -->
+      <section class="page" id="page-qualify">
+        <div class="page-header">
+          <div>
+            <h2>ICP评分</h2>
+            <p class="page-subtitle">六维度ICP匹配度评分（0-100），返回等级和推荐操作</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row wrap">
+            <div class="input-group flex-1">
+              <label><i class="ri-global-line"></i> 域名</label>
+              <input type="text" id="qualifyDomain" placeholder="example.com" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-building-2-line"></i> 公司名称</label>
+              <input type="text" id="qualifyCompany" placeholder="示例公司" class="input">
+            </div>
+            <div class="input-group flex-1">
+              <label><i class="ri-price-tag-3-line"></i> 行业</label>
+              <select id="qualifyIndustry" class="input">
+                <option value="">选择行业...</option>
+                <option value="B2B SaaS">B2B SaaS</option>
+                <option value="IT服务">IT服务</option>
+                <option value="网络安全">网络安全</option>
+                <option value="云计算">云计算</option>
+                <option value="人工智能">人工智能</option>
+                <option value="人力资源">人力资源</option>
+                <option value="市场营销">市场营销</option>
+                <option value="管理咨询">管理咨询</option>
+                <option value="电子商务">电子商务</option>
+                <option value="金融服务">金融服务</option>
+                <option value="法律服务">法律服务</option>
+                <option value="医疗">医疗</option>
+                <option value="房地产">房地产</option>
+                <option value="教育">教育</option>
+              </select>
+            </div>
+            <div class="input-group" style="width:160px">
+              <label><i class="ri-user-settings-line"></i> ICP配置</label>
+              <select id="qualifyProfile" class="input">
+                <option value="default">通用B2B</option>
+                <option value="saas">B2B SaaS / 科技</option>
+                <option value="agency">营销/设计机构</option>
+                <option value="professional_services">专业服务</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row" style="margin-top:12px">
+            <div class="input-group flex-1">
+              <label><i class="ri-file-text-line"></i> 调研数据 (JSON, 可选)</label>
+              <textarea id="qualifyResearch" class="input textarea" rows="3" placeholder='可粘贴调研模块的输出JSON...'></textarea>
+            </div>
+            <button class="btn btn-primary" id="btnQualify" onclick="runQualify()" style="align-self:flex-end">
+              <i class="ri-bar-chart-grouped-line"></i> 开始评分
+            </button>
+          </div>
+        </div>
+
+        <div id="qualifyResult" class="result-area hidden"></div>
+      </section>
+
+      <!-- ==================== 外展管理 ==================== -->
+      <section class="page" id="page-outreach">
+        <div class="page-header">
+          <div>
+            <h2>外展管理</h2>
+            <p class="page-subtitle">多触点外展序列管理，跟踪LinkedIn连接请求和跟进消息</p>
+          </div>
+          <button class="btn btn-outline" onclick="refreshOutreach()">
+            <i class="ri-refresh-line"></i> 刷新状态
+          </button>
+        </div>
+
+        <div class="outreach-stats" id="outreachStats">
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outTotal">0</div>
+            <div class="mini-stat-label">总线索</div>
+          </div>
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outPending">0</div>
+            <div class="mini-stat-label">待处理</div>
+          </div>
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outInSeq">0</div>
+            <div class="mini-stat-label">进行中</div>
+          </div>
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outCompleted">0</div>
+            <div class="mini-stat-label">已完成</div>
+          </div>
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outDueToday">0</div>
+            <div class="mini-stat-label">今日待发</div>
+          </div>
+          <div class="card mini-stat">
+            <div class="mini-stat-value" id="outCapacity">20</div>
+            <div class="mini-stat-label">剩余名额</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="ri-calendar-todo-line"></i> 今日待处理</h3>
+          </div>
+          <div id="outreachDueList" class="due-list">
+            <div class="empty-state">
+              <i class="ri-inbox-line"></i>
+              <p>暂无待处理线索</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 上下文提取 ==================== -->
+      <section class="page" id="page-context">
+        <div class="page-header">
+          <div>
+            <h2>上下文提取</h2>
+            <p class="page-subtitle">通过AI分析公司网站，提取行业、产品、竞争对手、痛点等全面信息</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label><i class="ri-link"></i> 公司网站URL</label>
+              <input type="url" id="contextUrl" placeholder="https://example.com" class="input">
+            </div>
+            <button class="btn btn-primary" id="btnContext" onclick="runContext()">
+              <i class="ri-building-2-line"></i> 开始提取
+            </button>
+          </div>
+        </div>
+
+        <div id="contextResult" class="result-area hidden"></div>
+      </section>
+
+      <!-- ==================== 企业微信同步 ==================== -->
+      <section class="page" id="page-sync">
+        <div class="page-header">
+          <div>
+            <h2>企业微信同步</h2>
+            <p class="page-subtitle">将线索数据推送到企业微信群，支持Markdown格式消息卡片</p>
+          </div>
+        </div>
+
+        <div class="card input-card">
+          <div class="input-row">
+            <div class="input-group flex-1">
+              <label><i class="ri-file-text-line"></i> 线索数据 (JSON数组)</label>
+              <textarea id="syncData" class="input textarea" rows="6" placeholder='[{"company":"示例公司","domain":"example.com","industry":"B2B SaaS","contact_name":"张三"}]'></textarea>
+            </div>
+          </div>
+          <div class="input-row" style="margin-top:12px;justify-content:flex-end;gap:12px">
+            <label class="checkbox-label">
+              <input type="checkbox" id="syncDryRun" checked>
+              <span>模拟运行（不实际发送）</span>
+            </label>
+            <button class="btn btn-primary" onclick="runSync()">
+              <i class="ri-wechat-line"></i> 推送到企业微信
+            </button>
+          </div>
+        </div>
+
+        <div id="syncResult" class="result-area hidden"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 全局加载遮罩 -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="loading-spinner">
+      <div class="spinner-ring"></div>
+      <p id="loadingText">处理中...</p>
+    </div>
+  </div>
+
+  <!-- Toast通知 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

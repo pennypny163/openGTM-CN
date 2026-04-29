@@ -1,0 +1,49 @@
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+venv
+.venv
+.env
+.env.local
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Test files
+tests
+**/*.test.py
+
+# Documentation
+docs
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Build
+dist
+build
+.with
+
+# Misc
+coverage
+.cache
+tmp
+temp
+examples

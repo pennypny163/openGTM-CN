@@ -1,0 +1,136 @@
+{
+  "name": "OpenGTM",
+  "description": "开源AI GTM工具包。AEO健康评分和ICP线索资质评估，直接从终端运行。Clay、Apollo和Semrush的MIT许可替代品。",
+  "manifest_version": "2.0",
+  "runtime": "python",
+  "python_dependencies": [
+    "httpx>=0.27.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=5.0.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0"
+  ],
+  "secrets_needed": [],
+  "actions": {
+    "aeo_health": {
+      "label": "AEO健康检查",
+      "description": "运行29项检查，涵盖技术SEO、结构化数据、AI爬虫访问和权威信号。返回分层评分和字母等级（A+到F），让你了解ChatGPT和豆包是否能找到你。",
+      "inputs": [
+        {
+          "name": "url",
+          "label": "URL",
+          "type": "url",
+          "required": true,
+          "description": "要分析的页面。",
+          "placeholder": "https://example.com"
+        },
+        {
+          "name": "timeout",
+          "label": "超时（秒）",
+          "type": "number",
+          "required": false,
+          "default": 30,
+          "description": "HTTP请求超时时间。"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "url",
+          "label": "URL",
+          "type": "text"
+        },
+        {
+          "name": "score",
+          "label": "评分",
+          "type": "number"
+        },
+        {
+          "name": "grade",
+          "label": "等级",
+          "type": "text"
+        },
+        {
+          "name": "band",
+          "label": "评级",
+          "type": "text"
+        },
+        {
+          "name": "checks_passed",
+          "label": "通过检查数",
+          "type": "number"
+        },
+        {
+          "name": "checks_failed",
+          "label": "未通过检查数",
+          "type": "number"
+        },
+        {
+          "name": "issues",
+          "label": "问题列表",
+          "type": "json"
+        },
+        {
+          "name": "tier_details",
+          "label": "层级详情",
+          "type": "json"
+        }
+      ]
+    },
+    "score_lead": {
+      "label": "线索评分（ICP）",
+      "description": "对线索进行六维度ICP匹配度评分（0-100）：公司规模、行业、数字化成熟度、痛点信号、营收、联系人质量。返回等级（热门/温暖/冷淡）和推荐下一步操作。",
+      "inputs": [
+        {
+          "name": "lead",
+          "label": "线索（JSON）",
+          "type": "textarea",
+          "required": true,
+          "description": "线索对象JSON。最少需要：{ \"domain\": \"...\", \"company\": \"...\", \"industry\": \"...\" }。可选包含opengtm research.py的research_data。",
+          "placeholder": "{\"domain\": \"acme.com\", \"company\": \"示例公司\", \"industry\": \"B2B SaaS\"}"
+        },
+        {
+          "name": "icp_profile",
+          "label": "ICP配置文件",
+          "type": "text",
+          "required": false,
+          "default": "default",
+          "description": "内置配置文件键：default, saas, agency, professional_services等"
+        },
+        {
+          "name": "custom_profile",
+          "label": "自定义配置文件（可选JSON）",
+          "type": "textarea",
+          "required": false,
+          "description": "完整的ICP配置文件JSON对象，用于覆盖预设。留空则使用内置配置文件。"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "score",
+          "label": "评分",
+          "type": "number"
+        },
+        {
+          "name": "tier",
+          "label": "等级",
+          "type": "text"
+        },
+        {
+          "name": "recommended_action",
+          "label": "推荐操作",
+          "type": "text"
+        },
+        {
+          "name": "reasons",
+          "label": "原因",
+          "type": "json"
+        },
+        {
+          "name": "breakdown",
+          "label": "评分明细",
+          "type": "json"
+        }
+      ]
+    }
+  }
+}
