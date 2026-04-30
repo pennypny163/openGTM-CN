@@ -71,12 +71,6 @@ RESEARCH_PROMPT = """分析公司"{company}"的网站 {domain}（行业：{indus
 }}"""
 
 
-def _llm_call(prompt: str, timeout: int = 90) -> str:
-    """调用LLM API并返回文本响应。"""
-    data = chat_completion_json(prompt, temperature=0.1)
-    return json.dumps(data)
-
-
 def _verify_linkedin(url: str) -> bool:
     """验证LinkedIn个人主页URL是否真实存在（非幻觉）。"""
     if not url:
@@ -132,12 +126,7 @@ def research(
 
     for attempt in range(3):
         try:
-            text = _llm_call(prompt, timeout=90)
-            text = text.strip()
-            if text.startswith("```"):
-                text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-
-            data = json.loads(text)
+            data = chat_completion_json(prompt, temperature=0.1)
 
             # 验证联系人信息
             contact = data.get("contact", {})

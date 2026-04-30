@@ -41,6 +41,24 @@ app = Flask(
     static_folder="static",
 )
 
+# API 认证（可选，设置 API_AUTH_TOKEN 环境变量启用）
+API_AUTH_TOKEN = os.environ.get("API_AUTH_TOKEN", "")
+
+
+@app.before_request
+def check_auth():
+    """可选的 Bearer Token 认证，仅对 /api/ 端点生效。"""
+    if not API_AUTH_TOKEN:
+        return  # 未配置则跳过认证
+    if not request.path.startswith("/api/"):
+        return  # 非 API 请求不检查
+    if request.path == "/api/status":
+        return  # 状态端点公开
+    auth = request.headers.get("Authorization", "")
+    if auth != f"Bearer {API_AUTH_TOKEN}":
+        return jsonify({"error": "未授权，请提供有效的 Authorization: Bearer <token>"}), 401
+
+
 # 全局外展序列实例（内存中）
 _outreach_seq = OutreachSequence()
 

@@ -1,336 +1,200 @@
-# 🚀 OpenGTM - The AI-Powered GTM Toolkit That Doesn't Cost $800/month
-
-<!-- keywords: claude code gtm automation, ai lead generation python, answer engine optimization tool, aeo checker open source, cold outreach automation, icp scoring, lead qualification python, open source sales tools, ai content pipeline, outreach automation python -->
+# 🚀 OpenGTM-CN — AI驱动的B2B获客自动化平台
 
 <div align="center">
 
-![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-![GitHub stars](https://img.shields.io/github/stars/buildingopen/opengtm?style=social)
-![GTM Automation](https://img.shields.io/badge/GTM-Automation%20Magic-orange.svg)
 
-**The open-source alternative to Clay that actually works for humans** 🤖✨
+**Clay ($800/月) 的开源替代品，适配中国 B2B 市场**
 
-> "Why pay $800/month when you can build your own AI sales army for the price of a coffee?" ☕
+支持 DeepSeek / OpenAI / 混元等任何 OpenAI 兼容 API
 
 </div>
 
-## ⚡ TL;DR - What This Thing Actually Does
+---
 
-OpenGTM is your **AI co-pilot for B2B sales** that:
-- 🎯 **Finds perfect leads** (no more guessing games)
-- 🔍 **Researches companies like a detective** (contacts, tech stack, pain points)
-- 🎯 **Scores leads 0-100** (so you know who to call first)  
-- ✍️ **Writes personalized messages** (that don't sound like a robot)
-- 📅 **Manages outreach sequences** (so you don't forget to follow up)
-- 📊 **Checks your AI visibility** (because ChatGPT is the new Google)
+## ⚡ 一句话介绍
 
-**Cost comparison:** Clay ($800/mo) vs. OpenGTM ($0 + API costs ≈ $0.01 per lead)
+OpenGTM 是一个 **AI 驱动的 B2B GTM 自动化工具包**，帮你：
+- 🔍 **按行业+地区发现目标公司**（LLM + URL 验证）
+- 🔬 **调研公司网站**（提取决策者联系人 + 技术审计）
+- 🎯 **ICP 评分 0-100**（6 维度，自动分级 hot/warm/cold）
+- ✍️ **生成个性化外展消息**（5 种模式，中/英/德三语）
+- 🩺 **AEO 健康检查**（29 项检查，AI 可见性评分）
+- 📝 **内容流水线**（博客生成 + SEO 关键词研究）
+- 🔄 **企业微信 CRM 同步**
+
+**成本对比：** Clay ($800/月) vs OpenGTM ($0 + API ≈ ¥0.07/条线索)
 
 ---
 
-## 🎯 The Problem: GTM Tools Are Broken
-
-Let's be real - the current GTM stack is like paying for a luxury car when you just need a reliable bicycle:
-
-- **Clay costs more than your coffee budget** ☕💰 → $800/month for a solo founder?
-- **Apollo gives you 50M contacts but zero personalization** 📧 → Spray-and-pray doesn't work anymore
-- **Writing outreach manually doesn't scale** ✍️ → You can't research 50 companies/week by hand
-- **AEO (the new SEO) has zero tools** 🤖 → If you're invisible in ChatGPT, you lose
-
-OpenGTM fixes this. **MIT licensed, runs locally, and actually understands context.**
-
----
-
-## 🚀 3 Commands to Your First Qualified Lead
+## 🚀 快速开始
 
 ```bash
-pip install opengtm
-export GEMINI_API_KEY=your_key_here  # Free at aistudio.google.com
-opengtm pipeline --industry "B2B SaaS" --region "Berlin" --limit 10
-```
+# 1. 安装
+pip install -e .
 
-**What happens next:**
-1. 🤖 AI finds 10 Berlin SaaS companies
-2. 🔍 Researches each one (contacts, website, pain points)  
-3. 🎯 Scores them 0-100 (hot/warm/cold)
-4. ✍️ Writes personalized LinkedIn messages
-5. 📊 Outputs ready-to-send leads
+# 2. 配置
+cp .env.example .env
+# 编辑 .env，填入你的 API Key
+
+# 3. 运行完整流水线
+opengtm pipeline --industry "B2B SaaS" --region "北京" --limit 5
+
+# 4. 或启动 Web 界面
+python api_server.py
+# 访问 http://localhost:5001
+```
 
 ---
 
-## 🎪 The Full Circus (What's in the Box?)
+## 🎯 核心模块
 
-### 🎯 Outbound Pipeline (Your AI Sales Rep)
+| 模块 | 功能 | CLI 命令 |
+|------|------|----------|
+| **Discover** | 按行业+地区发现目标公司 | `opengtm discover` |
+| **Research** | 调研网站：联系人 + 7维度审计 | `opengtm research` |
+| **Qualify** | ICP评分 0-100（hot/warm/cold） | `opengtm qualify` |
+| **Message** | 5种模式个性化外展消息 | `opengtm message` |
+| **Analytics** | 29项 AEO 健康检查 | `opengtm analytics` |
+| **Blog** | 5阶段 AI 博客生成 | `opengtm blog` |
+| **Keywords** | 7阶段 SEO 关键词研究 | `opengtm keywords` |
+| **Pipeline** | 一键全流程 | `opengtm pipeline` |
+| **Sync** | 企业微信 CRM 推送 | `opengtm sync` |
+
+---
+
+## 🏗️ 架构
+
 ```
 Discover → Research → Qualify → Message → Outreach → Sync
-   |           |          |          |          |          |
-   v           v          v          v          v          v
-Find leads  Extract    Score     Generate   Manage    Push to
-by industry contacts  0-100     messages   sequences Google Sheets
-```
-
-### 📝 Content Pipeline (Your AI Content Team)  
-```
-Context → Keywords → Blog → Analytics → AEO Mentions
-   |          |         |         |           |
-   v          v         v         v           v
-Understand  Research  Write    Check AI   Track who's
-company    topics    articles visibility talking about you
+   |           |          |          |          |         |
+   v           v          v          v          v         v
+ LLM搜索    网站审计    6维评分    5模式消息   多触点序列  企业微信
 ```
 
 ---
 
-## 🎯 Module Showcase - Pick Your Superpower
+## 🎯 ICP 评分体系
 
-| Module | What it does | CLI Command | Fun Level |
-|--------|-------------|-------------|-----------|
-| **Discover** | Finds companies by industry/region | `opengtm discover` | 🎯 Target acquired |
-| **Research** | Extracts contacts + website audit | `opengtm research` | 🔍 Detective mode |  
-| **Qualify** | Scores leads 0-100 (hot/warm/cold) | `opengtm qualify` | 🎯 Sniper mode |
-| **Message** | Writes personalized outreach | `opengtm message` | ✍️ Copywriter hired |
-| **Analytics** | 29-point AEO health check | `opengtm analytics` | 📊 Doctor's visit |
-| **Blog** | Generates SEO articles | `opengtm blog` | 📝 Content machine |
+| 维度 | 满分 | 信号来源 |
+|------|------|----------|
+| 行业匹配度 | 25 | 5级行业分层 |
+| 痛点信号 | 20 | 网站审计发现 |
+| 公司规模 | 20 | 博客/社交/网站复杂度 |
+| 数字化成熟度 | 15 | Schema/社交/内容 |
+| 营收信号 | 10 | 内容投入代理 |
+| 联系人质量 | 10 | 邮箱/电话/微信 |
+
+**分级：** 🔥 Hot (70+) · 🌤 Warm (45-69) · ❄️ Cold (<45)
 
 ---
 
-## 🎯 Real Examples - See It in Action
+## 💬 消息框架
 
-### 🎯 Find Berlin SaaS Companies
+AI 根据审计发现自动选择最佳模式：
+
+| 模式 | 触发条件 | 示例 |
+|------|----------|------|
+| **A - 具体发现** | 网站有明确技术问题 | "你们的 meta 描述缺失，5分钟即可修复" |
+| **B - 竞争对手** | 竞品在 AI 搜索中可见 | "[竞品]在ChatGPT中出现了，你们还没有" |
+| **C - 内容未索引** | 博客存在但未被收录 | "博客内容在搜索中不可见，1-2个技术修复" |
+| **D - 免费工具** | 无强发现 | "60秒查看你在AI搜索中的排名" |
+| **E - AI可见性** | 兜底/干净网站 | "测试了你是否出现在ChatGPT中，大多数同行还没有" |
+
+---
+
+## 🔧 配置
+
+项目使用 `.env` 文件配置，支持任何 OpenAI 兼容 API：
+
 ```bash
-opengtm discover --industry "B2B SaaS" --region "Berlin" --limit 5
-# Output: 5 perfect Berlin SaaS leads with domains + info
+# 必需
+OPENAI_API_KEY=your_key_here
+OPENAI_BASE_URL=https://api.deepseek.com/v1
+HUNYUAN_MODEL=deepseek-chat
+
+# 可选
+CRM_WEBHOOK_URL=企业微信群机器人Webhook
+DEFAULT_LANGUAGE=zh
+DEFAULT_DAILY_LIMIT=20
 ```
 
-### 🔍 Research a Company Like a Pro
-```bash
-opengtm research --domain n8n.io --company "n8n" --industry "Workflow Automation"
-# Output: Contacts + tech stack + pain points + website grade
-```
-
-### 📊 Get Your AI Visibility Score  
-```bash
-opengtm analytics --url your-startup.com --company "Your Startup"
-# Output: A+ to F grade + 29 specific fixes for AI search
-```
-
-### ✍️ Generate Outreach That Doesn't Suck
-```bash
-opengtm message --input researched-leads.json --language en
-# Output: Personalized LinkedIn messages that actually get replies
-```
+**支持的 API 端点：** DeepSeek、OpenAI、腾讯混元、通义千问、Ollama 等。
 
 ---
 
-## 🎯 ICP Scoring - Your Lead Quality Radar
-
-Leads get scored 0-100 across 6 dimensions (no manual input needed):
-
-| Dimension | What it measures | Why it matters |
-|-----------|-----------------|----------------|
-| **Company Size** | Headcount proxy from website signals | 🎯 Right company size |  
-| **Industry Fit** | How well they match your ideal customer | 🎯 Right industry |
-| **Digital Maturity** | Blog, social, tech stack quality | 🎯 Will understand tech |
-| **Pain Signals** | Website issues = budget for solutions | 🎯 Has problems to solve |
-| **Revenue Signals** | Content investment = budget available | 🎯 Can afford you |
-| **Contact Quality** | Name + LinkedIn + email found | 🎯 Can actually reach them |
-
-**Score Interpretation:**
-- 🔥 **70-100 (HOT)** → Drop everything, connect this week
-- 🌡️ **45-69 (WARM)** → Standard outreach sequence  
-- ❄️ **0-44 (COLD)** → Long-term nurture pool
-
----
-
-## 🤖 AEO Health Check - Your AI Visibility Report Card
-
-**AEO = Answer Engine Optimization** (the new SEO)
-
-ChatGPT and Perplexity are replacing Google. If you're invisible there, you lose. Our 29-point check gives you:
-
-- ✅ **AI Crawler Access** - Can ChatGPT even see your site?
-- ✅ **Structured Data** - Does AI understand who you are?  
-- ✅ **Technical SEO** - All the classic stuff but for AI
-- ✅ **Authority Signals** - Social proof, about page, contacts
-
-**Grade Scale:** A+ (90+) → F (<25)
-
-Most B2B sites score C or D. Getting to B is usually 2-3 hours of work. A? You're an AI visibility ninja. 🥷
-
----
-
-## 💌 Message Frameworks - 5 Ways to Start Conversations
-
-AI picks the best pattern based on what it finds:
-
-| Pattern | When to use | Example Hook |
-|---------|-------------|--------------|
-| **A - Specific Fix** | Found a clear website issue | "I noticed your meta description is missing. Google shows random text instead. 5 minute fix." |
-| **B - Competitor Angle** | Competitor visible, you're not | "[Competitor] shows in ChatGPT for your industry. Here's why you don't yet." |  
-| **C - Content Opportunity** | Blog exists but not indexed | "Your blog content isn't surfacing in searches. Usually 1-2 technical fixes." |
-| **D - Free Tool** | No strong finding | "Want to see your AI visibility? Check how you rank in ChatGPT in 60 seconds." |
-| **E - Clean Site** | Fallback for perfect sites | "Tested if you show up in AI search. Most companies in your space don't yet." |
-
-**Supports English + German** with proper formal address for DACH markets. 🇩🇪
-
----
-
-## 💰 Price Comparison - Prepare to Be Shocked
-
-| Feature | OpenGTM | Clay | Apollo | Semrush | **Total Savings** |
-|---------|---------|------|--------|---------|------------------|
-| Lead Discovery | ✅ | ✅ | ✅ | ❌ | |  
-| ICP Scoring | ✅ | ✅ | ✅ | ❌ | |
-| AEO Health Check | ✅ | ❌ | ❌ | ❌ | |
-| Content Pipeline | ✅ | ❌ | ❌ | ✅ | |
-| Outreach Sequences | ✅ | ✅ | ✅ | ❌ | |
-| **Monthly Cost** | **$0*** | **$400** | **$99** | **$130** | **$629/month** |
-
-*Plus Gemini API costs (~$0.01 per lead)
-
-**That's $7,548/year back in your pocket.** 💸
-
----
-
-## 🎯 Who This Is For (Personas)
-
-### 🚀 **Startup Founder**
-Doing 0-to-1 outbound but can't afford Clay? Find 20 qualified leads/week, research them, write messages, and track your AI visibility - all for less than your coffee budget.
-
-### 🏢 **Growth Agency**  
-Run discovery + research for clients at scale. Automate the boring parts, generate message templates, sync to client CRMs. The content pipeline works for multiple client domains.
-
-### 🔍 **SEO Consultant**
-Run AEO health checks, identify schema gaps, check AI crawler access, generate content briefs. The 29-check audit is a deliverable clients love.
-
-### 🤖 **Claude Code Power User**
-Integrate the full pipeline into your Claude workflow. Everything is standard Python - extend, customize, make it your own.
-
-### 📝 **Content Marketer**
-5-stage blog pipeline: context extraction, research, writing, verification. AEO optimization built into every article.
-
----
-
-## 🚀 Quick Start - 60 Seconds to Your First Lead
-
-1. **Install** (one command):
-   ```bash
-   pip install opengtm
-   ```
-
-2. **Get API Key** (free):
-   ```bash
-   # Get at aistudio.google.com
-   export GEMINI_API_KEY=your_key_here
-   ```
-
-3. **Run Pipeline** (magic happens):
-   ```bash
-   opengtm pipeline --industry "B2B SaaS" --region "Berlin" --limit 5
-   ```
-
-4. **See Results** (profit):
-   ```
-   🔥 HOT LEAD: n8n - Score: 85/100
-   ✍️ Message: Pattern A - Meta description fix
-   📧 Contact: CEO @ LinkedIn
-   ```
-
----
-
-## 🐍 Python API - For the Coders
+## 🐍 Python API
 
 ```python
-from opengtm import discover, research, qualify, message, analytics
+from opengtm.discover import discover
+from opengtm.research import research
+from opengtm.qualify import qualify_batch
+from opengtm.message import generate_messages
 
-# Find leads
-leads = discover(industry="B2B SaaS", region="Berlin", limit=5)
+# 发现目标公司
+leads = discover(industry="B2B SaaS", region="北京", limit=5)
 
-# Research them  
+# 调研
 for lead in leads:
     lead["audit"] = research(domain=lead["domain"], company=lead["company"])
 
-# Score 0-100
-qualified = qualify(leads, icp_profile="saas")
+# 评分
+qualified = qualify_batch(leads, icp_profile="saas")
 
-# Generate messages
+# 生成消息
 for lead in qualified:
-    lead["messages"] = message(lead)  # Auto-picks best pattern
-    print(f"🔥 {lead['company']}: {lead['score']}/100 - {lead['messages']['pattern']}")
-
-# Check AI visibility  
-health = analytics.health_check("your-site.com")
-print(f"AI Grade: {health['grade']} ({health['score']}/100)")
+    lead["messages"] = generate_messages(
+        domain=lead["domain"],
+        company=lead["company"],
+        audit=lead.get("audit"),
+        language="zh",
+    )
 ```
 
 ---
 
-## ❓ FAQ - Answers to Things You're Wondering
+## 🌐 Web 界面
 
-**🤔 How is this different from Clay?**
-Clay is closed SaaS ($800/mo). We're open source ($0). Clay has more integrations; we have AEO checks, content pipelines, and Claude integration that Clay doesn't.
-
-**🤔 Does it work without Gemini API key?**
-Scoring, messaging, outreach, and sync work without API. Discovery, research, and content need Gemini. AEO health check works standalone.
-
-**🤔 How much does Gemini cost?**
-~$0.01 per lead. Free tier covers 1,500 requests/day - plenty for most teams.
-
-**🤔 Can I add custom ICP profiles?**
-Yes! Pass custom scoring rules to `qualify()`. Make it fit your perfect customer.
-
-**🤔 What's AEO again?**  
-Answer Engine Optimization = being visible in ChatGPT/Perplexity. It's the 2025+ version of SEO.
-
-**🤔 German support?**
-Full DACH support with proper formal address. Because Germans appreciate properness. 🇩🇪
-
----
-
-## 🎯 Ready to Build Your AI Sales Army?
+启动 Flask 服务后提供现代化暗色仪表盘 UI：
 
 ```bash
-# Install and run in 60 seconds
-pip install opengtm
-export GEMINI_API_KEY=your_key_here  
-opengtm pipeline --industry "Your Industry" --region "Your City" --limit 5
+PORT=5001 python api_server.py
 ```
 
-**What you'll get:**
-- ✅ 5 perfectly matched leads
-- ✅ Researched contacts + pain points  
-- ✅ Score 0-100 (know who to call first)
-- ✅ Personalized messages ready to send
-- ✅ All for less than $0.05 total
+功能：一键流水线、线索发现、公司调研、ICP评分、AEO健康检查、外展管理、CRM同步。
 
 ---
 
-## 🤝 Contributing
+## 📂 项目结构
 
-We love contributors! Most needed:
-- 🎯 New ICP profiles (qualify.py)
-- ✍️ New message frameworks (message.py)  
-- 🔌 CRM integrations (sync.py)
-- 🌍 Additional languages (message.py)
-- 📊 SERP volume integration (keywords.py)
+```
+opengtm/
+├── __init__.py          # 版本 & 模型常量
+├── llm.py              # 统一LLM客户端（OpenAI兼容）
+├── discover.py         # 线索发现
+├── research.py         # 公司调研 + 联系人提取
+├── qualify.py          # ICP评分（纯逻辑）
+├── message.py          # 消息生成（模板引擎）
+├── outreach.py         # 外展序列管理
+├── sync.py             # 企业微信CRM同步
+├── analytics.py        # AEO健康检查（29项）
+├── context.py          # 公司上下文提取
+├── blog.py             # 博客生成流水线
+├── keywords.py         # 关键词研究流水线
+├── sitemap.py          # 站点地图爬取
+├── tencent_integration.py  # 腾讯生态集成
+└── cli.py              # 统一CLI入口
+```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for setup.
+---
+
+## 🤝 贡献
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
 ## 📄 License
 
-MIT License. Copyright 2026 Federico De Ponte.
-
-**Translation:** Do whatever you want with it. Just don't sue us. 😄
-
----
-
-<div align="center">
-
-**Built with ❤️ by humans who hate paying $800/month for software**
-
-[![Star on GitHub](https://img.shields.io/github/stars/buildingopen/opengtm?style=social)](https://github.com/buildingopen/opengtm)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
-</div>
+MIT License. See [LICENSE](LICENSE).

@@ -29,12 +29,6 @@ DISCOVER_PROMPT = """查找{region}地区的{limit}家{industry}公司，要求�
 [{{"company": "公司全称", "domain": "example.com"}}]"""
 
 
-def _llm_call(prompt: str, timeout: int = 90) -> str:
-    """调用LLM API并返回文本响应。"""
-    data = chat_completion_json(prompt, temperature=0.1)
-    return json.dumps(data)
-
-
 def _validate_url(domain: str, timeout: int = 6) -> bool:
     """通过HEAD请求验证域名是否可达。"""
     url = f"https://{domain}" if not domain.startswith("http") else domain
@@ -102,11 +96,16 @@ def discover(
     companies = None
     for attempt in range(3):
         try:
-            text = _llm_call(prompt, timeout=90)
-            text = text.strip()
-            if text.startswith("```"):
-                text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-            companies = json.loads(text)
+            companies = chat_completion_json(prompt, temperature=0.1)
+            if isinstance(companies, dict):
+                # LLM 可能返回 {"companies": [...]}，提取列表
+                for key in ("companies", "results", "data"):
+                    if key in companies and isinstance(companies[key], list):
+                        companies = companies[key]
+                        break
+            if not isinstance(companies, list):
+                companies = None
+                raise ValueError(f"Expected list, got {type(companies)}")
             break
         except Exception as e:
             if verbose:
