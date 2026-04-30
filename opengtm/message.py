@@ -21,7 +21,6 @@ import hashlib
 import os
 from typing import Optional
 
-
 DEFAULT_LANGUAGE = os.environ.get("DEFAULT_LANGUAGE", "zh")
 
 

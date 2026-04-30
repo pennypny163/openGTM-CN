@@ -13,7 +13,6 @@ from typing import Optional
 
 from .llm import chat_completion_json
 
-
 DISCOVER_PROMPT = """查找{region}地区的{limit}家{industry}公司，要求这些公司拥有自己的网站。
 
 要求：

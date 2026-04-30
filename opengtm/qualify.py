@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Optional
 
-
 # 行业匹配度分层。可通过icp_profile字典添加或覆盖。
 INDUSTRY_TIERS: dict[str, int] = {
     # 第1层：强ICP匹配 (25分) - 高数字化意识，B2B买家

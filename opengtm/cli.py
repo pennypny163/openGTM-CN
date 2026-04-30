@@ -56,8 +56,9 @@ def cmd_discover(args):
 
 
 def cmd_research(args):
-    from .research import research as _research
     import time
+
+    from .research import research as _research
 
     if args.domain:
         result = _research(
@@ -149,11 +150,12 @@ def cmd_message(args):
 def cmd_pipeline(args):
     """完整端到端流水线：发现 -> 调研 -> 评分 -> 消息 -> 同步。"""
     import time
+
     from .discover import discover as _discover
-    from .research import research as _research
-    from .qualify import qualify_batch
     from .message import generate_messages
-    from .sync import sync_leads, build_sync_payload
+    from .qualify import qualify_batch
+    from .research import research as _research
+    from .sync import build_sync_payload, sync_leads
 
     lang = args.language or os.environ.get("DEFAULT_LANGUAGE", "zh")
     output_path = args.output or f"/tmp/opengtm-pipeline-{args.industry.replace(' ', '-').lower()}.json"
@@ -285,7 +287,7 @@ def cmd_outreach(args):
 
 
 def cmd_sync(args):
-    from .sync import sync_leads, build_sync_payload
+    from .sync import build_sync_payload, sync_leads
 
     with open(args.input) as f:
         leads = json.load(f)

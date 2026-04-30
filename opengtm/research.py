@@ -18,7 +18,6 @@ import urllib.request
 
 from .llm import chat_completion_json
 
-
 RESEARCH_PROMPT = """分析公司"{company}"的网站 {domain}（行业：{industry}）。
 
 任务1 - 查找决策者/主要联系人（适配中国商业场景）：

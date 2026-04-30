@@ -17,7 +17,6 @@ import subprocess
 import time
 from typing import Optional
 
-
 CRM_WEBHOOK_URL = os.environ.get("CRM_WEBHOOK_URL", "")
 CRM_WEBHOOK_TOKEN = os.environ.get("CRM_WEBHOOK_TOKEN", "")
 

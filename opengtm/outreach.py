@@ -22,7 +22,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
-
 DEFAULT_DAILY_LIMIT = int(os.environ.get("DEFAULT_DAILY_LIMIT", "20"))
 
 

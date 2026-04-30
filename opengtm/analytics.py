@@ -33,7 +33,6 @@ import time
 from typing import Any, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -1189,7 +1188,8 @@ Return as JSON array:
     ai_calls = 0
 
     # Use unified LLM client
-    from .llm import chat_completion_json as _llm_json, chat_completion as _llm_text
+    from .llm import chat_completion as _llm_text
+    from .llm import chat_completion_json as _llm_json
 
     # Generate queries
     try:

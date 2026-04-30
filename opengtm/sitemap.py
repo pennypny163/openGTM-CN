@@ -264,7 +264,7 @@ async def _fetch_all_urls(company_url: str, timeout: float = 10.0) -> List[URLEn
             f"{www_base}/sitemap_index.xml",
         ])
 
-    from httpx import Timeout, Limits
+    from httpx import Limits, Timeout
 
     async with httpx.AsyncClient(
         timeout=Timeout(connect=5.0, read=timeout, write=5.0, pool=5.0),
@@ -322,7 +322,7 @@ async def _validate_urls(urls: List[str], sample_size: int = 50) -> List[str]:
     """通过HEAD请求验证URL，过滤失效链接。"""
     try:
         import httpx
-        from httpx import Timeout, Limits
+        from httpx import Limits, Timeout
     except ImportError:
         return urls
 

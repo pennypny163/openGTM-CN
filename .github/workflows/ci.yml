@@ -10,6 +10,7 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.9", "3.11", "3.12"]
 
@@ -27,7 +28,7 @@ jobs:
           pip install ruff
 
       - name: Lint with ruff
-        run: ruff check opengtm/ --select E,F,W --ignore E501
+        run: ruff check opengtm/
 
       - name: Run tests
         run: pytest tests/ -v --tb=short
