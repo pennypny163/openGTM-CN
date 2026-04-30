@@ -33,8 +33,6 @@ import time
 from typing import Any, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 
-from . import DEFAULT_MODEL
-from .llm import chat_completion, chat_completion_json
 
 logger = logging.getLogger(__name__)
 
@@ -1150,7 +1148,6 @@ async def _async_mentions(
     api_key: Optional[str] = None,
 ) -> Dict[str, Any]:
     """AI可见性检查的内部异步实现。"""
-    import json as _json
 
     key = api_key or os.environ.get("OPENAI_API_KEY")
     if not key:

@@ -163,7 +163,7 @@ def cmd_pipeline(args):
     print(f"{'='*60}", flush=True)
 
     # Step 1: Discover
-    print(f"\nSTEP 1: DISCOVER", flush=True)
+    print("\nSTEP 1: DISCOVER", flush=True)
     prospects = _discover(
         industry=args.industry,
         region=args.region,
@@ -198,7 +198,7 @@ def cmd_pipeline(args):
             time.sleep(3)
 
     # Step 3: Qualify
-    print(f"\nSTEP 3: QUALIFY", flush=True)
+    print("\nSTEP 3: QUALIFY", flush=True)
     qualified = qualify_batch(
         researched,
         icp_profile=args.icp_profile,
@@ -206,7 +206,7 @@ def cmd_pipeline(args):
     )
 
     # Step 4: Generate messages
-    print(f"\nSTEP 4: GENERATE MESSAGES", flush=True)
+    print("\nSTEP 4: GENERATE MESSAGES", flush=True)
     for lead in qualified:
         messages = generate_messages(
             domain=lead["domain"],
@@ -228,20 +228,20 @@ def cmd_pipeline(args):
 
     # Step 5: Sync (optional)
     if not args.no_sync and os.environ.get("CRM_WEBHOOK_URL"):
-        print(f"\nSTEP 5: SYNC TO CRM", flush=True)
+        print("\nSTEP 5: SYNC TO CRM", flush=True)
         sync_data = [build_sync_payload(lead) for lead in qualified]
         sync_leads(sync_data, dry_run=args.dry_run, verbose=True)
     elif args.no_sync:
-        print(f"\nSTEP 5: SYNC SKIPPED (--no-sync)", flush=True)
+        print("\nSTEP 5: SYNC SKIPPED (--no-sync)", flush=True)
     else:
-        print(f"\nSTEP 5: SYNC SKIPPED (CRM_WEBHOOK_URL not set)", flush=True)
+        print("\nSTEP 5: SYNC SKIPPED (CRM_WEBHOOK_URL not set)", flush=True)
 
     # Summary
     hot = sum(1 for r in qualified if r["qualification"]["tier"] == "hot")
     warm = sum(1 for r in qualified if r["qualification"]["tier"] == "warm")
     cold = sum(1 for r in qualified if r["qualification"]["tier"] == "cold")
     print(f"\n{'='*60}", flush=True)
-    print(f"PIPELINE COMPLETE", flush=True)
+    print("PIPELINE COMPLETE", flush=True)
     print(f"  Discovered:  {len(prospects)}", flush=True)
     print(f"  Researched:  {len(researched)}", flush=True)
     print(f"  Qualified:   {hot} hot, {warm} warm, {cold} cold", flush=True)
@@ -445,7 +445,7 @@ def cmd_keywords(args):
     print(f"\n{len(results)} keywords found", flush=True)
     if results:
         top5 = results[:5]
-        print(f"Top 5:", flush=True)
+        print("Top 5:", flush=True)
         for kw in top5:
             brief_flag = " [brief]" if kw.get("content_brief") else ""
             print(f"  [{kw.get('score', 0):3d}] {kw['keyword']} ({kw.get('cluster', '?')}){brief_flag}", flush=True)

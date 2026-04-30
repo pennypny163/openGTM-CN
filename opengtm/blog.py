@@ -21,14 +21,11 @@ blog.py - AI博客文章生成流水线。
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
-import os
 import re
 from datetime import datetime, timezone
 from typing import Optional, Set
 
-from . import DEFAULT_MODEL
 from .llm import chat_completion_json
 
 logger = logging.getLogger(__name__)
@@ -317,12 +314,12 @@ def _assemble_html(article: dict) -> str:
         title = article.get(f"section_{key}_title", "")
         content = article.get(f"section_{key}_content", "")
         if title or content:
-            parts.append(f"<section>")
+            parts.append("<section>")
             if title:
                 parts.append(f"<h2>{title}</h2>")
             if content:
                 parts.append(content)
-            parts.append(f"</section>")
+            parts.append("</section>")
 
     # Key takeaways
     takeaways = []
@@ -396,7 +393,7 @@ async def _run_pipeline(
         logger.info("[blog] Stage 1: using provided context")
 
     # 阶段1b：爬取站点地图获取博客URL参考
-    logger.info(f"[blog] Stage 1b: crawling sitemap")
+    logger.info("[blog] Stage 1b: crawling sitemap")
     try:
         from opengtm.sitemap import crawl_sitemap
         sitemap = crawl_sitemap(domain)

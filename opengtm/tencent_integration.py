@@ -22,7 +22,6 @@ import json
 import os
 import subprocess
 from datetime import datetime, timedelta
-from pathlib import Path
 from typing import Optional
 
 CRM_WEBHOOK_URL = os.environ.get("CRM_WEBHOOK_URL", "")

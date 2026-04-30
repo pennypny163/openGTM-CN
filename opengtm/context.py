@@ -17,8 +17,7 @@ import os
 from typing import Optional
 from urllib.parse import urlparse
 
-from . import DEFAULT_MODEL
-from .llm import chat_completion, chat_completion_json
+from .llm import chat_completion
 
 logger = logging.getLogger(__name__)
 

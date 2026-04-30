@@ -15,7 +15,6 @@ from __future__ import annotations
 import json
 import time
 import urllib.request
-from typing import Optional
 
 from .llm import chat_completion_json
 

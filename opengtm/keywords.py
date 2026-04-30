@@ -23,12 +23,9 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-import os
-import re
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple
 
-from . import DEFAULT_MODEL
 from .llm import chat_completion_json
 
 logger = logging.getLogger(__name__)

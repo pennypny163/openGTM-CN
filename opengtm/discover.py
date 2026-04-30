@@ -7,7 +7,6 @@ discover.py - 通过LLM进行线索发现。
 
 from __future__ import annotations
 
-import json
 import time
 import urllib.request
 from typing import Optional
