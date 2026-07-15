@@ -27,11 +27,20 @@ function toast(msg, type = 'info') {
 }
 
 async function api(url, data = null) {
+  if (window.OpenGTMDemo?.enabled()) {
+    return window.OpenGTMDemo.resolve(url, data);
+  }
   const opts = data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : {};
-  const resp = await fetch(url, opts);
-  const json = await resp.json();
-  if (json.error) throw new Error(json.error);
-  return json;
+  try {
+    const resp = await fetch(url, opts);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const json = await resp.json();
+    if (json.error) throw new Error(json.error);
+    return json;
+  } catch (error) {
+    if (window.OpenGTMDemo) return window.OpenGTMDemo.resolve(url, data);
+    throw error;
+  }
 }
 
 function disableBtn(btn) { btn.disabled = true; btn.dataset.origText = btn.innerHTML; btn.innerHTML = '<i class="ri-loader-4-line" style="animation:spin 0.8s linear infinite"></i> 处理中...'; }
@@ -79,9 +88,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 初始化
+  if (window.OpenGTMDemo?.enabled()) {
+    document.body.classList.add('demo-mode');
+    seedDemoInputs();
+  }
   loadStatus();
   initParticles();
 });
+
+function seedDemoInputs() {
+  const values = {
+    pipeIndustry: 'B2B SaaS', pipeRegion: '上海',
+    healthUrl: 'https://example-saas.cn',
+    discoverIndustry: 'B2B SaaS', discoverRegion: '上海',
+    researchDomain: 'lingyun-data.cn', researchCompany: '凌云数据', researchIndustry: 'B2B SaaS',
+    qualifyDomain: 'lingyun-data.cn', qualifyCompany: '凌云数据',
+    contextUrl: 'https://lingyun-data.cn',
+    syncData: '[{"company":"凌云数据","domain":"lingyun-data.cn","score":86,"tier":"hot"}]'
+  };
+  Object.entries(values).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
+  const badge = document.createElement('div');
+  badge.className = 'demo-ribbon';
+  badge.innerHTML = '<i class="ri-database-2-line"></i> GitHub Pages · 演示数据';
+  document.querySelector('.topbar-actions')?.prepend(badge);
+}
 
 // ==================== 系统状态 ====================
 
@@ -95,7 +125,10 @@ async function loadStatus() {
     const statusEl = $('#systemStatus');
     const dot = statusEl.querySelector('.status-dot');
     const label = statusEl.querySelector('span');
-    if (data.llm_configured) {
+    if (data.static_mode) {
+      dot.className = 'status-dot online';
+      label.textContent = '演示数据已加载';
+    } else if (data.llm_configured) {
       dot.className = 'status-dot online';
       label.textContent = 'LLM已连接';
     } else {
